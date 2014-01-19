@@ -285,7 +285,12 @@ module.exports = function (grunt) {
     },
     shell: {
       phonegapBuild: {
-        command: 'echo phonegap build android'
+        options: {
+          stdout: true,
+	  stderr: true,
+	  failOnError: true
+        },
+        command: 'phonegap build android'
       }
     },
 
@@ -384,7 +389,8 @@ module.exports = function (grunt) {
     'rev',
     'usemin',
     'htmlmin',
-    'copy:phonegap'
+    'copy:phonegap',
+    'shell:phonegapBuild'
   ]);
 
   grunt.registerTask('build', [
