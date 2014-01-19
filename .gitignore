@@ -6,8 +6,11 @@ dist
 app/bower_components
 
 # Phonegap
-platforms/
+platforms/**/
 plugins/
+
+# Phonegap + Yeoman
+www/
 
 # Intellij
 *.iml
