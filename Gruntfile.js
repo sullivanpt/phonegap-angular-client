@@ -22,7 +22,8 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
-      dist: 'dist'
+      dist: 'dist',
+      phonegap: 'www'
     },
 
     // Watches files for changes and runs tasks based on the changed files
@@ -121,6 +122,7 @@ module.exports = function (grunt) {
           ]
         }]
       },
+      phonegap: ['<%= yeoman.phonegap %>/*', '!<%= yeoman.phonegap %>/config.xml', '!<%= yeoman.phonegap %>/res'],
       server: '.tmp'
     },
 
@@ -271,6 +273,17 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      phonegap: {
+        expand: true,
+        cwd: '<%= yeoman.dist %>',
+        dest: '<%= yeoman.phonegap %>',
+        src: '**'
+      }
+    },
+    shell: {
+      phonegapBuild: {
+        command: 'echo phonegap build android'
       }
     },
 
@@ -351,6 +364,25 @@ module.exports = function (grunt) {
     'autoprefixer',
     'connect:test',
     'karma'
+  ]);
+
+  grunt.registerTask('phonegap', [
+    'clean:phonegap',
+    'clean:dist',
+    'bower-install',
+    'useminPrepare',
+    'concurrent:dist',
+    'autoprefixer',
+    'concat',
+    'ngmin',
+    'copy:dist',
+    'cdnify',
+    'cssmin',
+    'uglify',
+    'rev',
+    'usemin',
+    'htmlmin',
+    'copy:phonegap'
   ]);
 
   grunt.registerTask('build', [
