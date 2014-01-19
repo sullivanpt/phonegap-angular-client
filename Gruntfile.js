@@ -122,7 +122,7 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      phonegap: ['<%= yeoman.phonegap %>/*', '!<%= yeoman.phonegap %>/config.xml', '!<%= yeoman.phonegap %>/res'],
+      phonegap: ['<%= yeoman.phonegap %>/*'],
       server: '.tmp'
     },
 
@@ -253,6 +253,7 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.dist %>',
           src: [
+            'res/**/*',
 	    'config.xml',
             '*.{ico,png,txt}',
             '.htaccess',
