@@ -1,5 +1,16 @@
+# Angular/Yeoman
 node_modules
 dist
 .tmp
 .sass-cache
 app/bower_components
+
+# Phonegap
+platforms/
+plugins/
+
+# Intellij
+*.iml
+*.ipr
+*.iws
+.idea/
