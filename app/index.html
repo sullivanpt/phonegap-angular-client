@@ -43,6 +43,9 @@
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
+    <!-- Cordova/Phonegap support. TODO: check for conflicts with shims -->
+    <script type="text/javascript" src="phonegap.js"></script>
+
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/jquery.js"></script>
@@ -59,6 +62,7 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/services/cordova-ready.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -22,8 +22,7 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
-      dist: 'dist',
-      phonegap: 'www'
+      dist: 'www'
     },
 
     // Watches files for changes and runs tasks based on the changed files
@@ -122,7 +121,6 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      phonegap: ['<%= yeoman.phonegap %>/*'],
       server: '.tmp'
     },
 
@@ -254,7 +252,7 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             'res/**/*',
-	    'config.xml',
+            'config.xml',
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
@@ -275,20 +273,14 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
-      },
-      phonegap: {
-        expand: true,
-        cwd: '<%= yeoman.dist %>',
-        dest: '<%= yeoman.phonegap %>',
-        src: '**'
       }
     },
     shell: {
       phonegapBuild: {
         options: {
           stdout: true,
-	  stderr: true,
-	  failOnError: true
+          stderr: true,
+          failOnError: true
         },
         command: 'phonegap build android'
       }
@@ -335,6 +327,10 @@ module.exports = function (grunt) {
     //   dist: {}
     // },
 
+    uglify: {
+      options: { beautify: true }
+    },
+
     // Test settings
     karma: {
       unit: {
@@ -373,26 +369,6 @@ module.exports = function (grunt) {
     'karma'
   ]);
 
-  grunt.registerTask('phonegap', [
-    'clean:phonegap',
-    'clean:dist',
-    'bower-install',
-    'useminPrepare',
-    'concurrent:dist',
-    'autoprefixer',
-    'concat',
-    'ngmin',
-    'copy:dist',
-    'cdnify',
-    'cssmin',
-    'uglify',
-    'rev',
-    'usemin',
-    'htmlmin',
-    'copy:phonegap',
-    'shell:phonegapBuild'
-  ]);
-
   grunt.registerTask('build', [
     'clean:dist',
     'bower-install',
@@ -410,9 +386,15 @@ module.exports = function (grunt) {
     'htmlmin'
   ]);
 
+  // TODO: Add multiple platform support
+  grunt.registerTask('phonegap', [
+    'shell:phonegapBuild'
+  ]);
+
   grunt.registerTask('default', [
     'newer:jshint',
     'test',
-    'build'
+    'build',
+    'phonegap'
   ]);
 };

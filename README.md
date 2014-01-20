@@ -4,6 +4,8 @@ Building out an Android App based on these instructions http://lucaspaulger.com/
 
 Goal is to create a OAuth2.0 client to use against the mean-sso project.
 
+Warning:this code doesn't correctly talk to the cordova devices yet :-(.
+
 ## TODO
 
-Swap in grunt-angular-phonegap after making it work on Windows.
+Considered swapping in grunt-angular-phonegap after making it work on Windows; actually, a better idea is to build 'generator-angular-phonegap' based on the generator-angular-fullstack proxy.
