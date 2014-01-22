@@ -4,7 +4,8 @@ Building out an Android App based on these instructions http://lucaspaulger.com/
 
 Goal is to create a OAuth2.0 client to use against the mean-sso project.
 
-Warning:this code doesn't correctly talk to the cordova devices yet :-(.
+* grunt -- Build the device for android
+* phonegap run android -- Run on android
 
 ## TODO
 
