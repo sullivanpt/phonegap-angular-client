@@ -10,7 +10,11 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css styles/vendor.css -->
+
+      <!-- Cordova/Phonegap support. must be in header, apparently -->
+      <script type="text/javascript" src="cordova.js"></script>
+
+      <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
@@ -42,9 +46,6 @@
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
-
-    <!-- Cordova/Phonegap support. TODO: check for conflicts with shims -->
-    <script type="text/javascript" src="phonegap.js"></script>
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->

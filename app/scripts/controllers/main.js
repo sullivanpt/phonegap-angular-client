@@ -8,9 +8,5 @@ angular.module('phonegapAngularClientApp')
       'Karma'
     ];
 
-    cordovaReady(function () {
-      $scope.apply(function () {
-        $scope.cordovaIsReady = true;
-      });
-    });
+    $scope.cordovaReady = cordovaReady;
   });

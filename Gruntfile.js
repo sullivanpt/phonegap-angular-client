@@ -282,7 +282,9 @@ module.exports = function (grunt) {
           stderr: true,
           failOnError: true
         },
-        command: 'phonegap build android'
+        command: function (target) {
+          return 'phonegap build ' + target;
+        }
       }
     },
 
@@ -387,9 +389,12 @@ module.exports = function (grunt) {
   ]);
 
   // TODO: Add multiple platform support
-  grunt.registerTask('phonegap', [
-    'shell:phonegapBuild'
-  ]);
+  grunt.registerTask('phonegap', function (target) {
+    target = target || 'android';
+    grunt.task.run([
+      'shell:phonegapBuild:' + target
+    ]);
+  });
 
   grunt.registerTask('default', [
     'newer:jshint',
