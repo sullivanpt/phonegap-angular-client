@@ -1,4 +1,5 @@
 # phonegap-angular-client
+[![Build Status](https://travis-ci.org/sullivanpt/phonegap-angular-client.png?branch=master)](https://travis-ci.org/sullivanpt/phonegap-angular-client)
 
 Building out an Android App based on these
 instructions http://lucaspaulger.com/javascript/2013/09/25/Mobile-apps-Phonegap-Yeoman/.
