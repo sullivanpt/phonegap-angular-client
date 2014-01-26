@@ -7,9 +7,11 @@
   <h3 class="text-muted">phonegap angular client</h3>
 </div>
 
-<span class="label label-success" ng-show="cordovaReady()">Cordova is ready</span>
-<span class="label label-warning" ng-hide="cordovaReady()">Cordova is loading</span>
-<span>Model {{phoneModel}}</span>
+<div ng-show="cordovaIsReady">
+  <span class="label label-success">Cordova is ready</span>
+  <span>Model: {{phoneModel}}</span>
+</div>
+<span class="label label-warning" ng-hide="cordovaIsReady">Cordova is loading</span>
 
 <div class="jumbotron">
   <h1>'Allo, 'Allo!</h1>

@@ -1,16 +1,17 @@
 'use strict';
 
 angular.module('phonegapAngularClientApp')
-  .controller('MainCtrl', function ($scope, cordovaReady, cordovaDevice) {
+  .controller('MainCtrl', function ($scope, cordovaReady, $window) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
 
-    $scope.cordovaReady = cordovaReady;
-
-    cordovaDevice(function (device) {
-      $scope.phoneModel = device.model;
+    $scope.$watch(cordovaReady, function (newValue) {
+      if (newValue) {
+        $scope.cordovaIsReady = true;
+        $scope.phoneModel = $window.device.model;
+      }
     });
   });

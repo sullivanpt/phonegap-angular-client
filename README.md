@@ -14,13 +14,15 @@ Goal is to create a OAuth2.0 client to use against the mean-sso project.
 * git@github.com:sullivanpt/phonegap-angular-client.git
 * npm install
 * bower install
-* phonegap plugin add <item> # for each required plugin (must be a better way)
+* phonegap plugin add <item> # for each required plugin listed in the ./phonegap.json file
+
+TODO: should be able to get the definitive plugin list from (Object(./plugins/<platform>.json#installed_plugins).keys
 
 ## Develop
 
 * grunt -- Build the device for android
 * grunt serve -- Test the app off the device (device features should gracefully fail).
-* phonegap run android -- Test the app on android
+* phonegap run android -- Test the app on android (hint: 'adb logcat' is your friend).
 
 ## TODO
 

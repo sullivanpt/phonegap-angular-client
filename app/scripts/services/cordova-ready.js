@@ -1,5 +1,12 @@
 /**
- * wrapper for the cordova service is ready test
+ * wrapper for the cordova service is ready test.
+ *
+ * Usage:
+ *   $scope.$watch(cordovaReady, function (newValue) {
+ *   if (newValue) {
+ *     $scope.phoneModel = $window.device.model;
+ *     }
+ *   });
  */
 'use strict';
 
@@ -8,7 +15,7 @@ angular.module('phonegapAngularClientApp')
 
     var status = false;
     document.addEventListener('deviceready', function () {
-      console.log('CORDOVA IS READY');
+      console.log('Cordova deviceready received.');
       $rootScope.$apply(function () {
         status = true;
       });

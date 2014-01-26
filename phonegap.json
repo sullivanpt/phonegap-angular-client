@@ -1,0 +1,7 @@
+{
+  "readme": "List of reqired plugins. Use: phonegap plugin add <plugins[i]>",
+  "plugins": [
+    "org.apache.cordova.device",
+    "org.apache.cordova.inappbrowser"
+  ]
+}
