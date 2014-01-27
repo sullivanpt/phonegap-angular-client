@@ -16,8 +16,6 @@ Goal is to create a OAuth2.0 client to use against the mean-sso project.
 * bower install
 * phonegap plugin add <item> # for each required plugin listed in the ./phonegap.json file
 
-TODO: should be able to get the definitive plugin list from (Object(./plugins/<platform>.json#installed_plugins).keys
-
 ## Develop
 
 * grunt -- Build the device for android
