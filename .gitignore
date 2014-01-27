@@ -7,7 +7,7 @@ app/bower_components
 
 # Phonegap
 platforms/**/
-plugins/*/
+plugins/
 
 # Phonegap + Yeoman
 www/
