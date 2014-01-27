@@ -22,6 +22,10 @@ Goal is to create a OAuth2.0 client to use against the mean-sso project.
 * grunt serve -- Test the app off the device (device features should gracefully fail).
 * phonegap run android -- Test the app on android (hint: 'adb logcat' is your friend).
 
+Hint: If your android plugin or build dependencies get messed up you can delete the ./plugins/android.json file
+and the ./platforms/android folder, then rebuild.
+
 ## TODO
 
-Build 'generator-angular-phonegap' based on the generator-angular-fullstack proxy.
+* Implement authentication against meanSso prototype at http://intense-brushlands-5559.herokuapp.com/.
+* Build 'generator-angular-phonegap' based on the generator-angular-fullstack proxy.
