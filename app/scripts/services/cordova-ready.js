@@ -18,6 +18,7 @@ angular.module('phonegapAngularClientApp')
       console.log('Cordova deviceready received.');
       $rootScope.$apply(function () {
         status = true;
+        $rootScope.cordovaIsReady = true; // Provide a simplified global flag
       });
     }, false);
 

@@ -10,7 +10,6 @@ angular.module('phonegapAngularClientApp')
 
     $scope.$watch(cordovaReady, function (newValue) {
       if (newValue) {
-        $scope.cordovaIsReady = true;
         $scope.phoneModel = $window.device.model;
       }
     });

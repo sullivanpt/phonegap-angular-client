@@ -1,8 +1,9 @@
 <div class="header">
-  <ul class="nav nav-pills pull-right">
+  <ul class="nav nav-pills navbar-right">
     <li ng-class="{active: isActive('/')}"><a ng-href="#">Home</a></li>
     <li ng-class="{active: isActive('/about')}"><a ng-href="#/about">About</a></li>
     <li ng-hide="currentUser" ng-class="{active: isActive('/login')}"><a href="#/login">Login</a></li>
   </ul>
+  <div class="navbar-right"><span class="label label-info" ng-hide="cordovaIsReady">loading Cordova</span>&nbsp;&nbsp;</div>
   <h3 class="text-muted">phonegap angular client</h3>
 </div>

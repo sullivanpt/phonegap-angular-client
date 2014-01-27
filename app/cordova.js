@@ -15,4 +15,4 @@ window.setTimeout(function() {
   var event = document.createEvent('Event');
   event.initEvent('deviceready', true, true);
   document.dispatchEvent(event);
-}, 5000);
+}, 4000);
