@@ -4,7 +4,37 @@
   <div class="col-sm-12">
     <p>OAuth2 authentication against <strong>meanSso</strong> server at <code>{{sso.baseUrl}}</code></p>
   </div>
-  <div class="col-sm-12">
-    <a class="btn btn-lg btn-success">Login</a>
+  <div class="col-sm-6">
+    <h4>Using Resource-Owner-Password-Credentials</h4>
+    <p>This form requires the username and password be shared with the client and does not support delegation
+    to third party providers (not working yet).</p>
+    <form class="form" name="form" ng-submit="login(form)" novalidate>
+
+      <div class="form-group">
+        <label>Username</label>
+
+        <input type="text" name="username" class="form-control" ng-model="user.username">
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+
+        <input type="password" name="password" class="form-control" ng-model="user.password">
+      </div>
+
+      <div class="form-group has-error">
+        <p class="help-block" ng-show="form.username.$error.required && form.password.$error.required && submitted">
+          Please enter your username and password.
+        </p>
+        <p class="help-block">{{ errors.other }}</p>
+      </div>
+
+      <button type="submit" class="btn btn-lg btn-primary"> Sign in </button>
+    </form>
+  </div>
+  <div class="col-sm-6">
+    <h4>Using Authorization-code</h4>
+    <p>This form supports delegating authentication to third party providers such as Facebook (not working yet).</p>
+    <a class="btn btn-lg btn-primary">Register Device</a>
   </div>
 </div>
