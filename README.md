@@ -9,15 +9,24 @@ Goal is to create a OAuth2.0 client to use against the mean-sso project.
 
 ## Get started
 
-* install android SDK and add SDK's 'tools' and 'platform-tools' to your path.
+** Requirements (as tested on Win 7/8.1 x64) **
+* Android SDK Tools r22.3 (requires Java JDK 7); add 'tools' and 'platform-tools' to your path.
+* Ant v1.9.3; add 'bin' to your path.
+* (optional) Chrome v32.0.1700.102 for karma unit testing
+* (optional) msysgit v1.8.5.2 for bash shell (and version control)
+* Node.js v0.10.25
 * npm install -g yo generator-angular phonegap
-* git@github.com:sullivanpt/phonegap-angular-client.git
+
+** One time setup **
+* git clone git@github.com:sullivanpt/phonegap-angular-client.git
+* cd phonegap-angular-client
 * npm install
 * bower install
 * phonegap plugin add <item> # for each required plugin listed in the ./phonegap.json file
+* grunt
 
-## Develop
-
+** Development scenarios **
+* Use any of the generator-angular commands, with the following modifications:
 * grunt -- Build the device for android
 * grunt serve -- Test the app off the device (device features should gracefully fail).
 * phonegap run android -- Test the app on android (hint: 'adb logcat' is your friend).
@@ -29,3 +38,25 @@ and the ./platforms/android folder, then rebuild.
 
 * Implement authentication against meanSso prototype at http://intense-brushlands-5559.herokuapp.com/.
 * Build 'generator-angular-phonegap' based on the generator-angular-fullstack proxy.
+
+## License
+(The MIT License)
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
