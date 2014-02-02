@@ -3,8 +3,8 @@
  *
  * Usage:
  *   $scope.$watch(cordovaReady, function (newValue) {
- *   if (newValue) {
- *     $scope.phoneModel = $window.device.model;
+ *     if (newValue) {
+ *       $scope.phoneModel = $window.device.model;
  *     }
  *   });
  */
