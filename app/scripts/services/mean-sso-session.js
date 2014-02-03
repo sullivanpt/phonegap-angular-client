@@ -3,9 +3,8 @@
 /*jshint camelcase: false */
 
 angular.module('phonegapAngularClientApp')
-  .service('MeanSsoSession', function MeanSsoSession(MeanSsoApi, meanSsoConfig, $q) {
+  .service('MeanSsoSession', function MeanSsoSession(MeanSsoApi, meanSsoConfig, $q, $log, $rootScope) {
     var savedTokens; // saves user credentials if we have any. TODO: save in local storage
-    var savedUser; // saves the current user session profile. TODO: set this (need support in mean-sso)
 
     /**
      * This module restores session state from Phonegap storage and web APIs, which take time; use
@@ -15,7 +14,7 @@ angular.module('phonegapAngularClientApp')
      * Usage:
      *   $scope.$watch(MeanSsoSession, function (newValue) {
      *     if (newValue) {
-     *       MeanSsoSession.resourceOwnerPasswordCredentials(options);
+     *       $scope.username = MeanSsoSession.user.username;
      *     }
      *   });
      */
@@ -27,7 +26,17 @@ angular.module('phonegapAngularClientApp')
      * Returns the currently authenticated user profile or null if no user is logged in.
      */
     this.user = function () {
-      return savedUser;
+      return $rootScope.currentUser;
+    };
+
+    /**
+     * Logout and discard the current session
+     */
+    this.logout = function () {
+      $log.info('logout ' + ($rootScope.currentUser && $rootScope.currentUser.username || ''));
+      $rootScope.currentUser = null;
+      savedTokens = null;
+      MeanSsoApi.setUserAuthorizationHeader();
     };
 
     /**
@@ -36,38 +45,41 @@ angular.module('phonegapAngularClientApp')
      */
     this.resourceOwnerPasswordCredentials = function (options) {
       var deferred = $q.defer();
-      var tokens;
-      console.log('login as ' + options.username);
+      var tokens,
+        tokeninfo,
+        me;
+      $log.info('login as ' + options.username);
       MeanSsoApi.oauth2Token.save({
         'grant_type': 'password',
         scope: 'offline_access',
         username: options.username,
         password: options.password
       }).$promise.then(function (value) {
-          console.log('tokens ' + JSON.stringify(value));
           tokens = angular.fromJson(angular.toJson(value)); // strip $resource vars
+          $log.debug('tokens ' + JSON.stringify(tokens));
           return MeanSsoApi.oauth2TokenInfo.get({
             access_token: tokens.access_token
           }).$promise;
         }).then(function (value) {
-          console.log('token info ' + JSON.stringify(value));
-          if (value.audience !== meanSsoConfig.clientId) {
-            console.log('Unexpected token client ID ' + value.audience);
-            deferred.reject('Unexpected token client ID');
+          tokeninfo = angular.fromJson(angular.toJson(value)); // strip $resource vars
+          $log.debug('token info ' + JSON.stringify(tokeninfo));
+          if (tokeninfo.audience !== meanSsoConfig.clientId) {
+            $log.debug('Unexpected token client ID ' + tokeninfo.audience);
+            return $q.reject('Unexpected token client ID');
           } else {
             savedTokens = tokens;
             MeanSsoApi.setUserAuthorizationHeader('Bearer', tokens.access_token);
-            deferred.resolve();
-
-            // use token
-            MeanSsoApi.profile.get({}, function (value) {
-              console.log('profile ok ' + JSON.stringify(value));
-            }, function (err) {
-              console.log('profile err ' + JSON.stringify(err.data));
-            });
+            return MeanSsoApi.me.get().$promise;
           }
+        }).then(function (value) {
+          me = angular.fromJson(angular.toJson(value)); // strip $resource vars
+          $log.info('me ' + JSON.stringify(me));
+          $rootScope.currentUser = me; // Provide simple global access
+          deferred.resolve();
         }).catch(function (err) {
-          console.log('catch ' + err);
+          $log.warn('catch ' + err);
+          $rootScope.currentUser = null;
+          savedTokens = null;
           MeanSsoApi.setUserAuthorizationHeader();
           deferred.reject(err);
         });

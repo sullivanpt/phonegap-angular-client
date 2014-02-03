@@ -59,7 +59,6 @@ angular.module('phonegapAngularClientApp')
     this.oauth2Token = $resource(meanSsoConfig.baseUrl + '/oauth2/token', {}, {
       save: addClientAuthorizationHeader(angular.extend({method: 'POST'}, formUrlEncoded))
     });
-
     this.oauth2TokenInfo = $resource(meanSsoConfig.baseUrl + '/oauth2/tokeninfo');
-    this.profile = $resource(meanSsoConfig.baseUrl + '/cas/oauth2.0/profile', {}, userAuthorizationActions);
+    this.me = $resource(meanSsoConfig.baseUrl + '/api2/me', {}, userAuthorizationActions);
   });

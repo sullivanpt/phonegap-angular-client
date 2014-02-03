@@ -11,11 +11,11 @@
 'use strict';
 
 angular.module('phonegapAngularClientApp')
-  .factory('cordovaReady', function ($rootScope, $timeout) {
+  .factory('cordovaReady', function ($rootScope, $timeout, $log) {
 
     var status = false;
     document.addEventListener('deviceready', function () {
-      console.log('Cordova deviceready received.');
+      $log.info('Cordova deviceready received.');
       // deviceready is sometimes a direct callback if phonegap is already loaded (no $apply needed),
       // and is a DOM event if loaded in the future ($apply is needed).
       // Apparently the safe way to make sure it's always wrapped correctly is to use $timeout.
