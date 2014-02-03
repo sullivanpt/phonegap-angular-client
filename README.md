@@ -36,7 +36,6 @@ and the ./platforms/android folder, then rebuild.
 
 ## TODO
 
-* Implement authentication against meanSso prototype at http://intense-brushlands-5559.herokuapp.com/.
 * Build 'generator-angular-phonegap' based on the generator-angular-fullstack proxy.
 
 ## License
