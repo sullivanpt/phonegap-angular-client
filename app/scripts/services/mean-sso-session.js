@@ -3,8 +3,18 @@
 /*jshint camelcase: false */
 
 angular.module('phonegapAngularClientApp')
-  .service('MeanSsoSession', function MeanSsoSession(MeanSsoApi, meanSsoConfig, $q, $log, $rootScope) {
-    var savedTokens; // saves user credentials if we have any. TODO: save in local storage
+  .service('MeanSsoSession', function MeanSsoSession(MeanSsoApi, meanSsoConfig, $q, $log, $rootScope, $window) {
+    var LOCAL_STORAGE_ID = 'meanSsoSession'; // window.localStorage key
+    var status = false; // set true after module initializes
+
+    function saveTokens(tokens) {
+      if (tokens) {
+        MeanSsoApi.setUserAuthorizationHeader('Bearer', tokens.access_token);
+      } else {
+        MeanSsoApi.setUserAuthorizationHeader();
+      }
+      $window.localStorage[LOCAL_STORAGE_ID] = JSON.stringify(tokens);
+    }
 
     /**
      * This module restores session state from Phonegap storage and web APIs, which take time; use
@@ -19,7 +29,7 @@ angular.module('phonegapAngularClientApp')
      *   });
      */
     this.ready = function () {
-      return true;
+      return status;
     };
 
     /**
@@ -35,8 +45,7 @@ angular.module('phonegapAngularClientApp')
     this.logout = function () {
       $log.info('logout ' + ($rootScope.currentUser && $rootScope.currentUser.username || ''));
       $rootScope.currentUser = null;
-      savedTokens = null;
-      MeanSsoApi.setUserAuthorizationHeader();
+      saveTokens(null);
     };
 
     /**
@@ -67,8 +76,7 @@ angular.module('phonegapAngularClientApp')
             $log.debug('Unexpected token client ID ' + tokeninfo.audience);
             return $q.reject('Unexpected token client ID');
           } else {
-            savedTokens = tokens;
-            MeanSsoApi.setUserAuthorizationHeader('Bearer', tokens.access_token);
+            saveTokens(tokens);
             return MeanSsoApi.me.get().$promise;
           }
         }).then(function (value) {
@@ -79,10 +87,35 @@ angular.module('phonegapAngularClientApp')
         }).catch(function (err) {
           $log.warn('catch ' + err);
           $rootScope.currentUser = null;
-          savedTokens = null;
-          MeanSsoApi.setUserAuthorizationHeader();
+          saveTokens(null);
           deferred.reject(err);
         });
       return deferred.promise;
     };
+
+    // singleton initialization helper to either load the _cache from local storage or from scratch
+    // take care to return a valid context even when local storage exists but is unparsable
+    try {
+      var tokens = JSON.parse($window.localStorage[LOCAL_STORAGE_ID]);
+      if (tokens) {
+        $log.debug('tokens ' + JSON.stringify(tokens));
+        MeanSsoApi.setUserAuthorizationHeader('Bearer', tokens.access_token);
+        MeanSsoApi.me.get().$promise.then(function (value) {
+          var me = angular.fromJson(angular.toJson(value)); // strip $resource vars
+          $log.info('me ' + JSON.stringify(me));
+          $rootScope.currentUser = me; // Provide simple global access
+          status = true;
+        }).catch(function (err) {
+            $log.warn('catch ' + err);
+            $rootScope.currentUser = null;
+            saveTokens(null);
+            status = true;
+          });
+      }
+    } catch (e) {
+      $log.warn('catch ' + e);
+      $rootScope.currentUser = null;
+      saveTokens(null);
+      status = true;
+    }
   });
