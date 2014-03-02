@@ -160,7 +160,8 @@ module.exports = function (grunt) {
         html: '<%= yeoman.app %>/index.html',
         ignorePath: '<%= yeoman.app %>/',
         exclude: [
-          'bootstrap'
+          'bootstrap',
+          'bootswatch'
         ]
       }
     },
@@ -280,6 +281,8 @@ module.exports = function (grunt) {
             '*.html',
             'views/{,*/}*.html',
             'bower_components/**/*',
+            '!bower_components/bootstrap/**/*',
+            '!bower_components/bootswatch/**/*',
             'images/{,*/}*.{webp}',
             'fonts/*'
           ]
