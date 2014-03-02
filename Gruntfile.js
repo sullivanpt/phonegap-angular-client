@@ -38,9 +38,13 @@ module.exports = function (grunt) {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
       },
-      styles: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'autoprefixer']
+//      styles: {
+//        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
+//        tasks: ['newer:copy:styles', 'autoprefixer']
+//      },
+      less: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
+        tasks: ['less:dist']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -124,26 +128,40 @@ module.exports = function (grunt) {
       server: '.tmp'
     },
 
-    // Add vendor prefixed styles
-    autoprefixer: {
-      options: {
-        browsers: ['last 1 version']
-      },
+    less: {
       dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/styles/',
-          src: '{,*/}*.css',
-          dest: '.tmp/styles/'
-        }]
+        options: {
+          dumpLineNumbers: 'comments' // TODO: source-maps https://github.com/gruntjs/grunt-contrib-less/issues/60
+        },
+        files: {
+          '.tmp/styles/main.css': '<%= yeoman.app %>/styles/main.less'
+        }
       }
     },
+
+    // Add vendor prefixed styles
+//    autoprefixer: {
+//      options: {
+//        browsers: ['last 1 version']
+//      },
+//      dist: {
+//        files: [{
+//          expand: true,
+//          cwd: '.tmp/styles/',
+//          src: '{,*/}*.css',
+//          dest: '.tmp/styles/'
+//        }]
+//      }
+//    },
 
     // Automatically inject Bower components into the app
     'bower-install': {
       app: {
         html: '<%= yeoman.app %>/index.html',
-        ignorePath: '<%= yeoman.app %>/'
+        ignorePath: '<%= yeoman.app %>/',
+        exclude: [
+          'bootstrap'
+        ]
       }
     },
 
@@ -295,13 +313,13 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'copy:styles'
+        'less:dist' // 'copy:styles'
       ],
       test: [
-        'copy:styles'
+        'less:dist' // 'copy:styles'
       ],
       dist: [
-        'copy:styles',
+        'less:dist', // 'copy:styles'
         'imagemin',
         'svgmin'
       ]
@@ -372,7 +390,7 @@ module.exports = function (grunt) {
       'version',
       'bower-install',
       'concurrent:server',
-      'autoprefixer',
+//      'autoprefixer',
       'connect:livereload',
       'watch'
     ]);
@@ -389,7 +407,7 @@ module.exports = function (grunt) {
       'clean:server',
       'version',
       'concurrent:test',
-      'autoprefixer',
+//      'autoprefixer',
       'connect:test',
       'karma:' + target
     ]);
@@ -401,7 +419,7 @@ module.exports = function (grunt) {
     'bower-install',
     'useminPrepare',
     'concurrent:dist',
-    'autoprefixer',
+//    'autoprefixer',
     'concat',
     'ngmin',
     'copy:dist',
