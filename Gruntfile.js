@@ -149,7 +149,10 @@ module.exports = function (grunt) {
 
 
 
-
+    // Capture the git commit for reporting
+    'git-describe': {
+      me: {}
+    },
 
     // Renames files for browser caching purposes
     rev: {
@@ -251,6 +254,7 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.dist %>',
           src: [
+            'version.json',
             'res/**/*',
             'config.xml',
             '*.{ico,png,txt}',
@@ -348,6 +352,15 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.registerTask('version', 'Tag the current build revision', function () {
+    grunt.event.once('git-describe', function (rev) {
+      grunt.file.write(grunt.config('yeoman.app') + '/version.json', JSON.stringify({
+        revision: rev[0],
+        date: grunt.template.today('isoDateTime')
+      }));
+    });
+    grunt.task.run('git-describe');
+  });
 
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
@@ -356,6 +369,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'version',
       'bower-install',
       'concurrent:server',
       'autoprefixer',
@@ -373,6 +387,7 @@ module.exports = function (grunt) {
     target = target || 'unit';
     grunt.task.run([
       'clean:server',
+      'version',
       'concurrent:test',
       'autoprefixer',
       'connect:test',
@@ -382,6 +397,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'version',
     'bower-install',
     'useminPrepare',
     'concurrent:dist',
