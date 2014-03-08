@@ -7,7 +7,7 @@
   <div class="col-sm-6">
     <h4>Using Resource-Owner-Password-Credentials</h4>
     <p>This form requires the username and password be shared with the client and does not support delegation
-    to third party providers.</p>
+    to third party providers.  The remote account must already exist.</p>
     <form class="form" name="form" ng-submit="login(form)" novalidate>
 
       <div class="form-group">
@@ -31,10 +31,13 @@
 
       <button type="submit" class="btn btn-lg btn-primary"> Sign in </button>
     </form>
+    <hr>
+    Not registered? <a href="#/signup" class="text-center new-account">Create an account.</a>
   </div>
   <div class="col-sm-6">
     <h4>Using Authorization-code</h4>
-    <p>This form supports delegating authentication to third party providers such as Facebook (not working yet).</p>
+    <p>This form supports delegating authentication to third party providers such as Facebook (not working yet).
+      This will create the remote account if needed.</p>
     <a class="btn btn-lg btn-primary">Register Device</a>
   </div>
 </div>

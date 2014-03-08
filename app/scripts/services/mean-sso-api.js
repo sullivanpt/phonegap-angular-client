@@ -61,4 +61,5 @@ angular.module('phonegapAngularClientApp')
     });
     this.oauth2TokenInfo = $resource(meanSsoConfig.baseUrl + '/oauth2/tokeninfo');
     this.me = $resource(meanSsoConfig.baseUrl + '/api2/me', {}, userAuthorizationActions);
+    this.register = $resource(meanSsoConfig.baseUrl + '/api/users', {}, userAuthorizationActions); // TODO: change to api2
   });

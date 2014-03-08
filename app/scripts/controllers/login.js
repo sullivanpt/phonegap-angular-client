@@ -19,6 +19,7 @@ angular.module('phonegapAngularClientApp')
             $location.path('/');
           })
           .catch( function(err) {
+            $scope.errors = {};
             $scope.errors.other = errors.format(err);
           });
       }

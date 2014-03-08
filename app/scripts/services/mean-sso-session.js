@@ -93,6 +93,25 @@ angular.module('phonegapAngularClientApp')
       return deferred.promise;
     };
 
+    /**
+     * Register a new user
+     */
+    this.register = function (options) {
+      var deferred = $q.defer();
+      MeanSsoApi.register.save({
+        name: options.name,
+        email: options.email,
+        password: options.password
+      }).$promise.then(function (value) {
+          $log.info('register ' + JSON.stringify(value));
+          deferred.resolve(value);
+        }).catch(function (err) {
+          $log.warn('catch ' + err);
+          deferred.reject(err);
+        });
+      return deferred.promise;
+    };
+
     // singleton initialization helper to either load the _cache from local storage or from scratch
     // take care to return a valid context even when local storage exists but is unparsable
     try {
