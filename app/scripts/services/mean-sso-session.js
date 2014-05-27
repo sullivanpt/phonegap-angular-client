@@ -132,7 +132,7 @@ angular.module('phonegapAngularClientApp')
           });
       }
     } catch (e) {
-      $log.warn('catch ' + e);
+      $log.warn('MeanSsoSession parse ' + e);
       $rootScope.currentUser = null;
       saveTokens(null);
       status = true;

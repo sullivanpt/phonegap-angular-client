@@ -3,7 +3,9 @@
 describe('Controller: MainCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('phonegapAngularClientApp'));
+  beforeEach(module('phonegapAngularClientApp', function ($provide) {
+    $provide.service('MeanSsoConfig', function () {});
+  }));
 
   var MainCtrl,
     scope,

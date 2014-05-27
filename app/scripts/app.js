@@ -27,4 +27,6 @@ angular.module('phonegapAngularClientApp', [
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+  .run(function (MeanSsoConfig) {/*jshint unused:false*/}); // forcing config and notify services to load
+

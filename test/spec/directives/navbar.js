@@ -3,7 +3,9 @@
 describe('Directive: navbar', function () {
 
   // load the directive's module
-  beforeEach(module('phonegapAngularClientApp'));
+  beforeEach(module('phonegapAngularClientApp', function ($provide) {
+    $provide.service('MeanSsoConfig', function () {});
+  }));
 
   var $httpBackend,
     element,
