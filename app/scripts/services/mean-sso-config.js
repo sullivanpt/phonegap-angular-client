@@ -5,26 +5,9 @@
 'use strict';
 
 angular.module('phonegapAngularClientApp')
-  .service('MeanSsoConfig', function MeanSsoConfig($window, $log, MeanSsoApi) {
+  .service('MeanSsoConfig', function MeanSsoConfig($rootScope, $window, $log, MeanSsoApi) {
     var LOCAL_STORAGE_ID = 'meanSsoConfig'; // window.localStorage key
     var that = this;
-    var status = false;
-
-    /**
-     * This module restores session state from Phonegap storage and web APIs, which take time; use
-     * this function to determine when the module has been fully booted and previous session state
-     * has been determined.
-     *
-     * Usage:
-     *   $scope.$watch(MeanSsoConfig, function (newValue) {
-     *     if (newValue) {
-     *       $scope.setting = MeanSsoConfig.setting;
-     *     }
-     *   });
-     */
-    this.ready = function () {
-      return status;
-    };
 
     /**
      * Helper to test if a provider is enabled
@@ -44,7 +27,7 @@ angular.module('phonegapAngularClientApp')
         $window.$.cloudinary.config(decoded.cloudinary);
       }
 
-      status = true;
+      $rootScope.MeanSsoConfig = that; // make config globally available to views and watches
     }
 
     // singleton initialization helper to either load the _cache from local storage or from scratch

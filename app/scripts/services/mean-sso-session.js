@@ -3,15 +3,17 @@
 /*jshint camelcase: false */
 
 angular.module('phonegapAngularClientApp')
-  .service('MeanSsoSession', function MeanSsoSession(MeanSsoApi, config, $q, $log, $rootScope, $window) {
+  .service('MeanSsoSession', function MeanSsoSession(MeanSsoApi, MeanSsoPrimus, config, $q, $log, $rootScope, $window) {
     var LOCAL_STORAGE_ID = 'meanSsoSession'; // window.localStorage key
     var status = false; // set true after module initializes
 
     function saveTokens(tokens) {
       if (tokens) {
         MeanSsoApi.setUserAuthorizationHeader('Bearer', tokens.access_token);
+        MeanSsoPrimus.setUserAuthorizationHeader('bearer', tokens.access_token);
       } else {
         MeanSsoApi.setUserAuthorizationHeader();
+        MeanSsoPrimus.setUserAuthorizationHeader();
       }
       $window.localStorage[LOCAL_STORAGE_ID] = JSON.stringify(tokens);
     }
@@ -123,6 +125,7 @@ angular.module('phonegapAngularClientApp')
           var me = angular.fromJson(angular.toJson(value)); // strip $resource vars
           $log.info('me ' + JSON.stringify(me));
           $rootScope.currentUser = me; // Provide simple global access
+          MeanSsoPrimus.setUserAuthorizationHeader('bearer', tokens.access_token); // do this AFTER validating the token
           status = true;
         }).catch(function (err) {
             $log.warn('catch ' + err);
