@@ -128,6 +128,15 @@ module.exports = function (grunt) {
       server: '.tmp'
     },
 
+    http: {
+      primus: { // capture the current primus.io client library
+        options: {
+          url: 'http://intense-brushlands-5559.herokuapp.com' + '/primus/primus.js'
+        },
+        dest: '<%= yeoman.app %>/libraries/primus/primus.js'
+      }
+    },
+
     less: {
       dist: {
         options: {
@@ -443,6 +452,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('default', [
+    'http:primus', // for now only update this include with default build, always before testing
     'newer:jshint',
     'test',
     'build',

@@ -16,7 +16,7 @@ describe('Controller: SignupCtrl', function () {
     });
   }));
 
-  it('should attach the sso parameters to the scope', function () {
-    expect(scope.meanSsoConfig).toBeTruthy();
+  it('should attach the register handler to the scope', function () {
+    expect(scope.register).toBeTruthy();
   });
 });

@@ -16,7 +16,7 @@ describe('Controller: LoginCtrl', function () {
     });
   }));
 
-  it('should attach the sso parameters to the scope', function () {
-    expect(scope.meanSsoConfig).toBeTruthy();
+  it('should attach the login handler to the scope', function () {
+    expect(scope.login).toBeTruthy();
   });
 });

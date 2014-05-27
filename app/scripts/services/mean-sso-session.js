@@ -3,7 +3,7 @@
 /*jshint camelcase: false */
 
 angular.module('phonegapAngularClientApp')
-  .service('MeanSsoSession', function MeanSsoSession(MeanSsoApi, meanSsoConfig, $q, $log, $rootScope, $window) {
+  .service('MeanSsoSession', function MeanSsoSession(MeanSsoApi, config, $q, $log, $rootScope, $window) {
     var LOCAL_STORAGE_ID = 'meanSsoSession'; // window.localStorage key
     var status = false; // set true after module initializes
 
@@ -72,7 +72,7 @@ angular.module('phonegapAngularClientApp')
         }).then(function (value) {
           tokeninfo = angular.fromJson(angular.toJson(value)); // strip $resource vars
           $log.debug('token info ' + JSON.stringify(tokeninfo));
-          if (tokeninfo.audience !== meanSsoConfig.clientId) {
+          if (tokeninfo.audience !== config.meanSso.clientId) {
             $log.debug('Unexpected token client ID ' + tokeninfo.audience);
             return $q.reject('Unexpected token client ID');
           } else {

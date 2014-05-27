@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: meanSsoConfig', function () {
+describe('Service: MeanSsoConfig', function () {
 
   // load the service's module
   beforeEach(module('phonegapAngularClientApp'));
 
   // instantiate service
-  var meanSsoConfig;
-  beforeEach(inject(function (_meanSsoConfig_) {
-    meanSsoConfig = _meanSsoConfig_;
+  var MeanSsoConfig;
+  beforeEach(inject(function (_MeanSsoConfig_) {
+    MeanSsoConfig = _MeanSsoConfig_;
   }));
 
   it('should do something', function () {
-    expect(!!meanSsoConfig).toBe(true);
+    expect(!!MeanSsoConfig).toBe(true);
   });
 
 });

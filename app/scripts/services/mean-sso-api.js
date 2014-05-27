@@ -1,18 +1,18 @@
 'use strict';
 
 angular.module('phonegapAngularClientApp')
-  .service('MeanSsoApi', function MeanSsoApi($resource, formUrlEncoded, base64, meanSsoConfig) {
+  .service('MeanSsoApi', function MeanSsoApi($resource, formUrlEncoded, base64, config) {
 
     //
     // Helpers for authorization
     //
 
     // Add $http.config Basic authorization headers for the configured client
-    function addClientAuthorizationHeader(config) {
-      config.headers = angular.extend(config.headers || {},{
-        'Authorization': 'Basic ' + base64.encode((meanSsoConfig.clientId || '') + ':' + (meanSsoConfig.clientSecret || ''))
+    function addClientAuthorizationHeader(httpConfig) {
+      httpConfig.headers = angular.extend(httpConfig.headers || {},{
+        'Authorization': 'Basic ' + base64.encode((config.meanSso.clientId || '') + ':' + (config.meanSso.clientSecret || ''))
       });
-      return config;
+      return httpConfig;
     }
 
     var userAuthorizationHeader;
@@ -35,13 +35,13 @@ angular.module('phonegapAngularClientApp')
 
     // Add $http.config Basic authorization headers for the current user.
     // See addUserAuthorizationHeader
-    function addUserAuthorizationHeader(config) {
-      config.headers = angular.extend(config.headers || {},{
+    function addUserAuthorizationHeader(httpConfig) {
+      httpConfig.headers = angular.extend(httpConfig.headers || {},{
         'Authorization': function () {
           return userAuthorizationHeader;
         }
       });
-      return config;
+      return httpConfig;
     }
 
     var userAuthorizationActions = {
@@ -56,10 +56,11 @@ angular.module('phonegapAngularClientApp')
     // Resource definitions start here
     //
 
-    this.oauth2Token = $resource(meanSsoConfig.baseUrl + '/oauth2/token', {}, {
+    this.config = $resource(config.meanSso.baseUrl + '/api2/config');
+    this.oauth2Token = $resource(config.meanSso.baseUrl + '/oauth2/token', {}, {
       save: addClientAuthorizationHeader(angular.extend({method: 'POST'}, formUrlEncoded))
     });
-    this.oauth2TokenInfo = $resource(meanSsoConfig.baseUrl + '/oauth2/tokeninfo');
-    this.me = $resource(meanSsoConfig.baseUrl + '/api2/me', {}, userAuthorizationActions);
-    this.register = $resource(meanSsoConfig.baseUrl + '/api/users', {}, userAuthorizationActions); // TODO: change to api2
+    this.oauth2TokenInfo = $resource(config.meanSso.baseUrl + '/oauth2/tokeninfo');
+    this.me = $resource(config.meanSso.baseUrl + '/api2/me', {}, userAuthorizationActions);
+    this.register = $resource(config.meanSso.baseUrl + '/api/users', {}, userAuthorizationActions); // TODO: change to api2
   });

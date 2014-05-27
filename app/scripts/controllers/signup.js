@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('phonegapAngularClientApp')
-  .controller('SignupCtrl', function ($scope, $location, MeanSsoSession, meanSsoConfig, errors) {
-    $scope.meanSsoConfig = meanSsoConfig;
+  .controller('SignupCtrl', function ($scope, $location, MeanSsoSession, config, errors) {
+    $scope.config = config;
     $scope.user = {};
     $scope.errors = {};
 
