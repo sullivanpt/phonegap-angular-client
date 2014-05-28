@@ -1,6 +1,23 @@
+<navbar></navbar>
+
 <h1>Private Chat</h1>
-<p><strong>You</strong> {{persona.alias}}</p>
-<p><strong>Them</strong> {{other.alias}}</p>
+<div class="row">
+  <div class="col-sm-6">
+    <p>
+      <a href="#/social-me" title="change persona">
+        <img cl-image height="50" width="50" public-id="persona.avatarID" class="img-rounded"/>
+        <small>{{persona.alias}}</small>
+      </a>
+    </p>
+  </div>
+  <div class="col-sm-6">
+    <p class="text-right">
+      <strong>{{other.alias}}</strong>
+      <img cl-image height="50" width="50" public-id="other.avatarID" class="img-rounded"/>
+    </p>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-sm-12">
     <form class="form-horizontal" name="form" ng-submit="sendMessage(form)">
@@ -18,3 +35,9 @@
   <div ng-hide="persona.id === rcv.actor" class="col-sm-1"><span class="glyphicon glyphicon-user"></span></div>
 </div>
 
+<div class="row">
+  <div class="col-sm-12">
+    <hr>
+    Want to be popular? <a href="#/social" class="text-center new-account">Find more friends.</a>
+  </div>
+</div>

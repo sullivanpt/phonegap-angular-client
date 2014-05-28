@@ -4,7 +4,8 @@ angular.module('phonegapAngularClientApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'cloudinary'
 ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -31,6 +32,10 @@ angular.module('phonegapAngularClientApp', [
       .when('/social-message', {
         templateUrl: 'views/social-message.html',
         controller: 'SocialMessageCtrl'
+      })
+      .when('/social-me', {
+        templateUrl: 'views/social-me.html',
+        controller: 'SocialMeCtrl'
       })
       .otherwise({
         redirectTo: '/'

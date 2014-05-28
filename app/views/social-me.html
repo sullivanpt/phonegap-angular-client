@@ -1,0 +1,52 @@
+<navbar></navbar>
+
+<div class="row">
+  <div class="col-sm-12">
+    <h1>Profile</h1>
+    <p>Create a public profile so others can find you.</p>
+  </div>
+  <div class="col-sm-12" ng-hide="persona">
+    <p>Loading...</p>
+  </div>
+  <div class="col-sm-12" ng-show="persona">
+    <form class="personaForm" name="personaForm" ng-submit="changePersona(personaForm)" novalidate>
+      <div class="form-group">
+        <label>Name</label>
+
+        <input type="text" name="alias" class="form-control" ng-model="persona.alias"
+               mongoose-error/>
+        <p class="help-block" ng-show="form.alias.$error.mongoose">
+          {{ errors.other }}
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label>Biography</label>
+
+        <textarea rows="5" name="bio" class="form-control" ng-model="persona.bio"
+                  mongoose-error></textarea>
+        <p class="help-block" ng-show="form.bio.$error.mongoose">
+          {{ errors.other }}
+        </p>
+      </div>
+
+      <div class="form-group" ng-show="MeanSsoConfig.cloudinary">
+        <label>Avatar</label>
+        <br/><img cl-image height="200" width="200" public-id="persona.avatarID"/>
+        <br/><div ng-show="cloudinaryData" cl-upload data="cloudinaryData"></div>
+      </div>
+
+      <p class="help-block"> {{ message }} </p>
+
+      <button class="btn btn-lg btn-primary" type="submit">Save changes</button>
+      <button type="button" class="btn btn-lg btn-danger" ng-click="deletePersona()">Delete Profile</button>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <hr>
+    Happy with your profile? <a href="#/social" class="text-center new-account">Find a friend.</a>
+  </div>
+</div>

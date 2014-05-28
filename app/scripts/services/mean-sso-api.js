@@ -58,6 +58,13 @@ angular.module('phonegapAngularClientApp')
     //
 
     this.config = $resource(config.meanSso.baseUrl + '/api2/config');
+
+    /**
+     * GET retrieve a token authorizing a single cloudinary image upload.
+     * See https://github.com/jbcpollak/cloudinary_angular
+     */
+    this.imagesSignRequest = $resource(config.meanSso.baseUrl + '/api2/images/signrequest', {}, userAuthorizationActions);
+
     this.oauth2Token = $resource(config.meanSso.baseUrl + '/oauth2/token', {}, {
       save: addClientAuthorizationHeader(angular.extend({method: 'POST'}, formUrlEncoded))
     });
