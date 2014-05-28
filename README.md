@@ -15,21 +15,21 @@ Goal is to create a OAuth2.0 client to use against the mean-sso project.
 * (optional) Chrome v32.0.1700.102 for karma unit testing
 * (optional) msysgit v1.8.5.2 for bash shell (and version control)
 * Node.js v0.10.25
-* npm install -g yo generator-angular phonegap
+* npm install -g yo generator-angular
 
 ** One time setup **
 * git clone git@github.com:sullivanpt/phonegap-angular-client.git
 * cd phonegap-angular-client
 * npm install
 * bower install
-* phonegap plugin add <item> # for each required plugin listed in the ./phonegap.json file
+* ./node_modules/.bin/phonegap plugin add <item> # for each required plugin listed in the ./phonegap.json file
 * grunt
 
 ** Development scenarios **
 * Use any of the generator-angular commands, with the following modifications:
 * grunt -- Build the device for android
 * grunt serve -- Test the app off the device (device features should gracefully fail).
-* phonegap run android -- Test the app on android (hint: 'adb logcat' is your friend).
+* ./node_modules/.bin/phonegap run android -- Test the app on android (hint: 'adb logcat' is your friend).
 
 Hint: If your android plugin or build dependencies get messed up you can delete the ./plugins/android.json file
 and the ./platforms/android folder, then rebuild.

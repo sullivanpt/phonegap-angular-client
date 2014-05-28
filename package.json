@@ -44,7 +44,8 @@
     "karma-ng-html2js-preprocessor": "~0.1.0",
     "grunt-git-describe": "~2.3.2",
     "grunt-contrib-less": "~0.10.0",
-    "grunt-http": "^1.4.0"
+    "grunt-http": "^1.4.0",
+    "phonegap": "^3.4.0-0.19.21"
   },
   "engines": {
     "node": ">=0.8.0"

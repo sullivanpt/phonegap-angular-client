@@ -316,7 +316,7 @@ module.exports = function (grunt) {
           failOnError: true
         },
         command: function (target) {
-          return 'phonegap build ' + target;
+          return '"node_modules/.bin/phonegap" build ' + target;
         }
       }
     },
