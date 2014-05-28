@@ -24,6 +24,7 @@ angular.module('phonegapAngularClientApp')
 
       // Initialize jquery cloudinary
       if ($window.$ && $window.$.cloudinary && decoded.cloudinary) {
+        decoded.cloudinary.protocol = decoded.cloudinary.protocol || 'https:';
         $window.$.cloudinary.config(decoded.cloudinary);
       }
 
