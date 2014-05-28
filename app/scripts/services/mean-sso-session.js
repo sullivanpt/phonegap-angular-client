@@ -133,6 +133,8 @@ angular.module('phonegapAngularClientApp')
             saveTokens(null);
             status = true;
           });
+      } else {
+        status = true;
       }
     } catch (e) {
       $log.warn('MeanSsoSession parse ' + e);

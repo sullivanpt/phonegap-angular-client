@@ -47,6 +47,7 @@ angular.module('phonegapAngularClientApp')
     var userAuthorizationActions = {
       'get': addUserAuthorizationHeader({method:'GET'}),
       'save': addUserAuthorizationHeader({method:'POST'}),
+      'update': addUserAuthorizationHeader({method:'PUT'}),
       'query':  addUserAuthorizationHeader({method:'GET', isArray:true}),
       'remove': addUserAuthorizationHeader({method:'DELETE'}),
       'delete': addUserAuthorizationHeader({method:'DELETE'})
@@ -63,4 +64,12 @@ angular.module('phonegapAngularClientApp')
     this.oauth2TokenInfo = $resource(config.meanSso.baseUrl + '/oauth2/tokeninfo');
     this.me = $resource(config.meanSso.baseUrl + '/api2/me', {}, userAuthorizationActions);
     this.register = $resource(config.meanSso.baseUrl + '/api/users', {}, userAuthorizationActions); // TODO: change to api2
+
+    this.mePersonae = $resource(config.meanSso.baseUrl + '/api2/me/personae/:personaID', {
+      personaID: '@id'
+    }, userAuthorizationActions);
+    this.personae = $resource(config.meanSso.baseUrl + '/api2/personae/:personaID', {}, userAuthorizationActions);
+    this.messages = $resource(config.meanSso.baseUrl + '/api2/messages/:messageID', {
+      personaID: '@id'
+    }, userAuthorizationActions);
   });

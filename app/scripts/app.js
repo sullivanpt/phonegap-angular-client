@@ -24,6 +24,10 @@ angular.module('phonegapAngularClientApp', [
         templateUrl: 'views/signup.html',
         controller: 'SignupCtrl'
       })
+      .when('/social', {
+        templateUrl: 'views/social.html',
+        controller: 'SocialCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

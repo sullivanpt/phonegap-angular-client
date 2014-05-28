@@ -1,6 +1,7 @@
 <div class="header">
   <ul class="nav nav-pills navbar-right">
     <li ng-class="{active: isActive('/')}"><a ng-href="#">Home</a></li>
+    <li ng-show="currentUser" ng-class="{active: isActive('/social')}"><a ng-href="#/social">Social</a></li>
     <li ng-class="{active: isActive('/about')}"><a ng-href="#/about">About</a></li>
     <li ng-hide="currentUser" ng-class="{active: isActive('/login')}"><a href="#/login">Login</a></li>
     <li ng-show="currentUser" ng-class="{active: isActive('/logout')}"><a ng-click="logout()">Logout</a></li>
