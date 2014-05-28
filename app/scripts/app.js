@@ -28,6 +28,10 @@ angular.module('phonegapAngularClientApp', [
         templateUrl: 'views/social.html',
         controller: 'SocialCtrl'
       })
+      .when('/social-message', {
+        templateUrl: 'views/social-message.html',
+        controller: 'SocialMessageCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
